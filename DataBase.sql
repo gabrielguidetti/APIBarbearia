@@ -1,0 +1,71 @@
+CREATE DATABASE Barbearia;
+
+use Barbearia;
+
+CREATE TABLE FILIAIS (
+    ID INT NOT NULL IDENTITY PRIMARY KEY,
+    NOME VARCHAR(100),
+    ENDERECO VARCHAR(255),
+    TELEFONE VARCHAR(20)
+);
+
+CREATE TABLE BARBEIROS (
+    ID INT NOT NULL IDENTITY PRIMARY KEY,
+    NOME VARCHAR(100),
+    ESPECIALIDADE VARCHAR(100),
+    FILIAL_ID INT,
+    FOREIGN KEY (FILIAL_ID) REFERENCES FILIAIS(ID)
+);
+
+CREATE TABLE USUARIOS (
+    ID INT NOT NULL IDENTITY PRIMARY KEY,
+    NOME VARCHAR(100),
+    SENHA VARCHAR(50),
+    EMAIL VARCHAR(100),
+    TELEFONE VARCHAR(20),
+    DATA_CADASTRO DATE
+);
+
+CREATE TABLE agendamentos (
+    ID INT NOT NULL IDENTITY PRIMARY KEY,
+    USUARIO_ID INT,
+    BARBEIRO_ID INT,
+    FILIAL_ID INT,
+    DATA_AGENDAMENTO DATE,
+    HORA_AGENDAMENTO TIME,
+    SERVICO VARCHAR(100),
+    FOREIGN KEY (USUARIO_ID) REFERENCES USUARIOS(ID),
+    FOREIGN KEY (BARBEIRO_ID) REFERENCES BARBEIROS(ID),
+    FOREIGN KEY (FILIAL_ID) REFERENCES FILIAIS(ID)
+);
+
+INSERT INTO [dbo].[USUARIOS]
+           ([NOME]
+           ,[EMAIL]
+           ,[TELEFONE]
+           ,[DATA_CADASTRO]
+           ,[SENHA])
+     VALUES
+           ('admin'
+           ,'admin@gmail.com'
+           ,'999999999'
+           ,'2003/07/23'
+           ,'admin')
+
+INSERT INTO [dbo].[FILIAIS]
+           ([NOME]
+           ,[ENDERECO]
+           ,[TELEFONE])
+     VALUES
+           ('Bello Barber'
+           ,'Rua perto de lá mas pra cá'
+           ,'88888888')
+
+INSERT INTO [dbo].[BARBEIROS]
+           ([NOME]
+           ,[ESPECIALIDADE]
+           ,[FILIAL_ID])
+     VALUES
+           ('Gabriel'
+           ,'Corte Masculino'
+           ,1)
