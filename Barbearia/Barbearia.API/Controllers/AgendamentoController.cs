@@ -37,5 +37,14 @@ namespace Barbearia.API.Controllers
 
             return Ok(agendamento);
         }
+
+        [HttpGet]
+        [Route("{usuarioId:int}")]
+        public IActionResult GetAgendamentoByUser(int usuarioId)
+        {
+            var result = _context.Agendamentos.Where(x => x.UsuarioId == usuarioId).ToList();
+
+            return Ok(result);
+        }
     }
 }
