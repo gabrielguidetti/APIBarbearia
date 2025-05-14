@@ -46,5 +46,13 @@ namespace Barbearia.API.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet("GetAgendamentos")]
+        public IActionResult GetAgendamentos()
+        {
+            var result = _context.Agendamentos.ToList();
+
+            return Ok(result);
+        }
     }
 }
